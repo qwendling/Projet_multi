@@ -16,4 +16,13 @@ var Carrelage=function(nbLigne,nbColonne,tailleCarreaux,arene,color){
     var div=document.getElementById("Carreau"+y+","+x);
     div.style.backgroundColor=couleur;
   }
+
+  this.couleurDefaut=function(){
+    var i,j,div;
+    for(i=0;i<this.nbLigne;i++){
+      for(j=0;j<this.nbColonne;j++){
+        this.colorier(j,i,this.color);
+      }
+    }
+  }
 }
