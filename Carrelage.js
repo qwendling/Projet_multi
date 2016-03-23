@@ -5,10 +5,15 @@ var Carrelage=function(nbLigne,nbColonne,tailleCarreaux,arene,color){
   this.arene=arene;
   this.color=color;
   var i,j,c;
-  for(i=0;i<nbLigne;i++){
-    for(j=0;j<nbColonne;j++){
+  for(i=0;i<this.nbLigne;i++){
+    for(j=0;j<this.nbColonne;j++){
       c=new Carre(this.tailleCarreaux,this.color,this.arene,"Carreau"+i+","+j,0);
-      c.placeSurCellule(new Point(i,j));
+      c.placeSurCellule(new Point(j,i));
     }
+  }
+
+  this.colorier=function(x,y,couleur){
+    var div=document.getElementById("Carreau"+y+","+x);
+    div.style.backgroundColor=couleur;
   }
 }
