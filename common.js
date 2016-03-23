@@ -9,10 +9,10 @@ jaune.style.height = 50 + 'px'; // hauteur 150 pixels
 arene.parenterAuJeu(jaune); // parenté à l’arène
 //--------- placement du carré jaune dans l’arène -------
 var cell = new Point(0,0); // la case en haut à gauche
-//var cell2=new Point(1,0);
-//rouge.placeSurCellule(cell2);
+var cell2=new Point(1,0);
+rouge.placeSurCellule(cell2);
 var pix = arene.positionCentreDeCase(cell); // la position du centre de cette cellule
-jaune.style.position = "relative";
+jaune.style.position = "absolute";
 jaune.style.zIndex = 1;
 jaune.style.left = pix.x + 'px'; // devrait placer le coin supérieur gauche
 jaune.style.top = pix.y + 'px'; // du carré jaune au centre de la cellule (cf figure 3).

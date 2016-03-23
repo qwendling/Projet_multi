@@ -9,8 +9,8 @@ var Carre=function(taille,color,arene,id,profondeur){
 	_div.style.width=taille+"px";
 	_div.style.height=taille+"px";
 	_div.style.zIndex=profondeur;
-	_div.style.color=color;
-	_div.style.position="relative";
+	_div.style.backgroundColor=color;
+	_div.style.position="absolute";
 	arene.parenterAuJeu(_div);
 
 	this.placeSurCellule=function(cell){
@@ -29,7 +29,7 @@ var Carre=function(taille,color,arene,id,profondeur){
 
 	this.colorier=function(c){
 		this.color=c;
-		_div.style.color=c;
+		_div.style.backgroundColor=c;
 	}
 
 
