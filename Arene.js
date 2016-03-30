@@ -1,5 +1,4 @@
 
-
 var Arene=function(id,taille,color){
 	var _id=id;
 	var _taille=taille;

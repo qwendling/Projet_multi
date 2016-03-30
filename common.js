@@ -55,6 +55,9 @@ function deplacementIA(){
 
 var interIA;
 function IAseconde(){
+  if(envie==0){
+    location.reload();
+  }
   if(interIA != undefined){
     clearInterval(interIA);
     interIA=undefined;
