@@ -9,6 +9,10 @@ var Fifo=function(){
         array.push(x);
     }
 
+    this.dernier=function(){
+      return array[array.length-1];
+    }
+
     this.premier=function(){
         return array[0];
     }

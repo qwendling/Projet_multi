@@ -10,27 +10,27 @@ var Serpent=function(taille,couleur,arene,pos){
   var i,cell,celltmp,carre;
   switch(pos){
     case "haut":
-      for(i=0;i<taille;i++){
-        cell=new Point(i,0);
-        this.file.ajouter(cell);
-        carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"Carre num:"+i,1);
-        carre.placeSurCellule(cell);
-        if(i<taille-1){
-          carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+i,1);
-          celltmp=new Point(i+1,0);
-          carre.placeEntreCellules(cell,celltmp);
-        }
-      }
-      break;
-    case "bas":
       for(i=taille-1;i>=0;i--){
-        cell=new Point(i,taille-1);
+        cell=new Point(i,0);
         this.file.ajouter(cell);
         carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"Carre num:"+i,1);
         carre.placeSurCellule(cell);
         if(i>0){
           carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+i,1);
-          celltmp=new Point(i-1,taille-1);
+          celltmp=new Point(i-1,0);
+          carre.placeEntreCellules(cell,celltmp);
+        }
+      }
+      break;
+    case "bas":
+      for(i=0;i<taille;i++){
+        cell=new Point(i,taille-1);
+        this.file.ajouter(cell);
+        carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"Carre num:"+i,1);
+        carre.placeSurCellule(cell);
+        if(i<taille-1){
+          carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+i,1);
+          celltmp=new Point(i+1,taille-1);
           carre.placeEntreCellules(cell,celltmp);
         }
       }
@@ -42,17 +42,24 @@ var Serpent=function(taille,couleur,arene,pos){
 
 
   this.tete=function(){
-
+    var tmp=this.file.dernier();
+    return new Point(tmp.x,tmp.y);
   }
   this.queue=function(){
-
+    var tmp=this.file.premier();
+    return new Point(tmp.x,tmp.y);
   }
 
   this.toList=function(){
-
+    return this.file.to_Array();
   }
 
-  this.PlacerTete=function(c){
-
+  this.placerTete=function(c){
+    carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+i,1);
+    carre.placeEntreCellules(c,this.file.dernier());
+    carre2=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+i,1);
+    carre2.placeSurCellule(c);
+    this.file.liberer();
+    this.file.ajouter(new Point(c.x,c.y));
   }
 }
