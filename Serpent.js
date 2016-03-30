@@ -57,10 +57,8 @@ var Serpent=function(taille,couleur,arene,pos){
   this.placerTete=function(c){
     var fin=this.queue();
     var debut=this.tete();
-    console.log(fin.toString());
     var sup1=document.getElementById("Serpent"+nb+"Carre num:"+fin.x+fin.y);
     var sup2=document.getElementById("Serpent"+nb+"CarreInter num:"+fin.x+fin.y);
-    console.log(sup2);
     this.arene.div.removeChild(sup1);
     this.arene.div.removeChild(sup2);
     carre=new Carre(arene.tailleCellule()/2,this.couleur,this.arene,"Serpent"+nb+"CarreInter num:"+debut.x+debut.y,1);
