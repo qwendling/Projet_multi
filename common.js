@@ -1,7 +1,17 @@
+var inter;
 function clap(){
-  console.log(parseInt(Math.random()));
+  console.log(Math.random());
 }
-
+function clapseconde(){
+  if(inter != undefined){
+    clearInterval(inter);
+    inter=undefined;
+  }
+  else
+    inter=setInterval(clap,500);
+}
+var button=document.getElementById("buttonStart");
+button.onclick=clapseconde;
 //-------- creation de l’arene -----------
 var arene = new Arene("arene",50); // taille de la cellule : 200 pixels
 //--------- creation du carré jaune ------
