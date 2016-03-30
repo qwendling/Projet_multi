@@ -19,10 +19,11 @@ var tete = ser2.tete();
 var nouv_tete;
 switch(evt.keyCode)
 {
-case 37 : nouv_tete = tete.voisin("gch"); break;
-case 38 : nouv_tete = tete.voisin("haut"); break;
-case 39 : nouv_tete = tete.voisin("drt"); break;
-case 40 : nouv_tete = tete.voisin("bas"); break;
+case 37 : case 113 :nouv_tete = tete.voisin("gch"); break;
+case 38 : case 122 : nouv_tete = tete.voisin("haut"); break;
+case 39 : case 100 : nouv_tete = tete.voisin("drt"); break;
+case 40 : case 115 :nouv_tete = tete.voisin("bas"); break;
+default: return;
 }
 console.log(evt.keyCode);
 ser2.placerTete(nouv_tete);
