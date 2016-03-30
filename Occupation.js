@@ -1,5 +1,6 @@
-var Occupation=function(arene){
+var Occupation=function(arene,carrelage){
   this.arene=arene;
+  this.carrelage=carrelage;
   this.tab=new Array(arene.nbColonne());
   for(var i=0;i<arene.nbColonne();i++){
     this.tab[i]=new Array(arene.nbLigne());
@@ -39,12 +40,30 @@ var Occupation=function(arene){
     var gauche=cell.x-1;
     if(haut >= 0 && this.tab[cell.x][haut]==0)
       liste.push(new Point(cell.x,haut));
-    if(bas >= 0 && this.tab[cell.x][bas]==0)
+    if(bas < arene.nbLigne() && this.tab[cell.x][bas]==0)
       liste.push(new Point(cell.x,bas));
-    if(droite >= 0 && this.tab[droite][cell.y]==0)
+    if(droite < arene.nbColonne() && this.tab[droite][cell.y]==0)
       liste.push(new Point(droite,cell.y));
     if(gauche >= 0 && this.tab[gauche][cell.y]==0)
       liste.push(new Point(gauche,cell.y));
     return liste;
+  }
+
+  this.voisinLibreAuHasard=function(cell){
+    var liste=this.listeVoisinLibres(cell);
+    if(liste.length==0)
+      return undefined;
+    return liste[parseInt(Math.random()*liste.length)];
+  }
+
+  this.visuDebug=function(carrelage){
+    for(var i=0;i<arene.nbColonne();i++){
+      for (var j = 0; j < arene.nbLigne(); j++) {
+        if(this.tab[i][j]==0)
+          carrelage.colorier(i,j,carrelage.color);
+        if(this.tab[i][j]==1)
+          carrelage.colorier(i,j,"#ff0000");
+      }
+    }
   }
 }
