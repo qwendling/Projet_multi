@@ -1,3 +1,4 @@
+/*2.6.2
 var inter;
 function clap(){
   console.log(Math.random());
@@ -11,7 +12,7 @@ function clapseconde(){
     inter=setInterval(clap,500);
 }
 var button=document.getElementById("buttonStart");
-button.onclick=clapseconde;
+button.onclick=clapseconde;*/
 //-------- creation de l’arene -----------
 var arene = new Arene("arene",50); // taille de la cellule : 200 pixels
 //--------- creation du carré jaune ------
@@ -33,6 +34,36 @@ for (var i = 0; i < arene.nbLigne(); i++) {
 }
 occup.visuDebug(carrel);
 
+var envie=1;
+function deplacementIA(){
+  if(envie==1){
+    var tete=ser.tete();
+    var nouv_tete=occup.voisinLibreAuHasard(tete);
+    if(nouv_tete==undefined){
+      alert("IA dead");
+      envie=0;
+      return;
+    }
+    occup.liberer(ser.queue());
+    ser.placerTete(nouv_tete);
+    occup.occuper(nouv_tete);
+    occup.visuDebug(carrel);
+  }
+  else
+    return
+}
+
+var interIA;
+function IAseconde(){
+  if(interIA != undefined){
+    clearInterval(interIA);
+    interIA=undefined;
+  }
+  else
+    interIA=setInterval(deplacementIA,200);
+}
+var button=document.getElementById("buttonStart");
+button.onclick=IAseconde;
 
 document.onkeypress = function(evt)
 {
