@@ -14,7 +14,7 @@ function clapseconde(){
 var button=document.getElementById("buttonStart");
 button.onclick=clapseconde;*/
 //-------- creation de l’arene -----------
-var arene = new Arene("arene",50); // taille de la cellule : 200 pixels
+var arene = new Arene("arene",50);
 //--------- creation du carré jaune ------
 //var rouge =new Carre(50,"#ff0000",arene,"carreRouge",1);
 var carrel=new Carrelage(arene.nbLigne(),arene.nbColonne(),parseInt(arene.tailleCellule()*0.9),arene,"#72A431");

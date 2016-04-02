@@ -4,6 +4,8 @@ var Arene=function(id,taille,color){
 	var _taille=taille;
 	var _color=color;
 	this.div=document.getElementById(_id);
+	if(color != undefined)
+		this.div.style.backgroundColor=color;
 	this.tailleCellule=function(){
 		return _taille;
 	}
