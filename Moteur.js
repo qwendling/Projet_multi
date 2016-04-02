@@ -7,4 +7,12 @@ var Moteur=function(id,taille_cell,color){
   this.occupation=new Occupation(this.arene,this.carrelage);
   this.serpent1=new Serpent(this.arene.nbLigne(),"#FF612C",this.arene,"haut");
   this.serpent2=new Serpent(this.arene.nbLigne(),"#007DD6",this.arene,"bas");
+
+  this.nbLigne=function(){
+    return this.arene.nbLigne();
+  }
+
+  this.nbColonne=function(){
+    return this.arene.nbColonne();
+  }
 }
