@@ -8,6 +8,12 @@ var Moteur=function(id,taille_cell,color){
   this.tabSer=[];
   this.tabSer.push(new Serpent(this.arene.nbLigne(),"#FF612C",this.arene,"haut"));
   this.tabSer.push(new Serpent(this.arene.nbLigne(),"#007DD6",this.arene,"bas"));
+  for (var i = 0; i < this.arene.nbLigne(); i++) {
+    this.occupation.occuper(new Point(i,0));
+    this.occupation.occuper(new Point(i,this.arene.nbLigne()-1));
+
+  }
+  this.occupation.visuDebug(this.carrelage);
 
   this.nbLigne=function(){
     return this.arene.nbLigne();
@@ -45,72 +51,72 @@ var Moteur=function(id,taille_cell,color){
     switch(mouvement)
     {
       case "gch" :
-        if(occup.listeVoisinLibres(tete).length==0){
+        if(this.occupation.listeVoisinLibres(tete).length==0){
           alert("Tu as perdu");
           return;
         }
         if(tete.x<=0){
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
           break;
         }
-        if(occup.estLibre(new Point(tete.x-1,tete.y)))
+        if(this.occupation.estLibre(new Point(tete.x-1,tete.y)))
           nouv_tete = tete.voisin("gch");
         else {
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
         }
         break;
       case "haut" :
-        if(occup.listeVoisinLibres(tete).length==0){
+        if(this.occupation.listeVoisinLibres(tete).length==0){
           alert("Tu as perdu");
           return;
         }
         if(tete.y<=0){
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
           break;
         }
-        if(occup.estLibre(new Point(tete.x,tete.y-1)))
+        if(this.occupation.estLibre(new Point(tete.x,tete.y-1)))
           nouv_tete = tete.voisin("haut");
         else {
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
         }
         break;
       case "drt" :
-        if(occup.listeVoisinLibres(tete).length==0){
+        if(this.occupation.listeVoisinLibres(tete).length==0){
           alert("Tu as perdu");
           return;
         }
-        if(tete.x>=arene.nbColonne()-1){
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+        if(tete.x>=this.arene.nbColonne()-1){
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
           break;
         }
-        if(occup.estLibre(new Point(tete.x+1,tete.y)))
+        if(this.occupation.estLibre(new Point(tete.x+1,tete.y)))
           nouv_tete = tete.voisin("drt");
         else {
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
         }
         break;
       case "bas" :
-        if(occup.listeVoisinLibres(tete).length==0){
+        if(this.occupation.listeVoisinLibres(tete).length==0){
           alert("Tu as perdu");
           return;
         }
-        if(tete.y>=arene.nbLigne()-1){
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+        if(tete.y>=this.arene.nbLigne()-1){
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
           break;
         }
-        if(occup.estLibre(new Point(tete.x,tete.y+1)))
+        if(this.occupation.estLibre(new Point(tete.x,tete.y+1)))
           nouv_tete = tete.voisin("bas");
         else {
-          nouv_tete=occup.voisinLibreAuHasard(tete);
+          nouv_tete=this.occupation.voisinLibreAuHasard(tete);
         }
         break;
       default:
         return;
     }
-    occup.liberer(serpentCible.queue());
+    this.occupation.liberer(serpentCible.queue());
     serpentCible.placerTete(nouv_tete);
-    occup.occuper(nouv_tete);
-    occup.visuDebug(this.carrelage);
+    this.occupation.occuper(nouv_tete);
+    this.occupation.visuDebug(this.carrelage);
   }
 
 }
