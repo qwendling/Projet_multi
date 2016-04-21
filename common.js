@@ -76,11 +76,13 @@ document.onkeypress = function(evt)
   {
     case 37 :
     case 113 :
-      if(tete.x<=0)
-        return;
       if(occup.listeVoisinLibres(tete).length==0){
         alert("Tu as perdu");
         return;
+      }
+      if(tete.x<=0){
+        nouv_tete=occup.voisinLibreAuHasard(tete);
+        break;
       }
       if(occup.estLibre(new Point(tete.x-1,tete.y)))
         nouv_tete = tete.voisin("gch");
@@ -90,11 +92,13 @@ document.onkeypress = function(evt)
       break;
     case 38 :
     case 122 :
-      if(tete.y<=0)
-        return;
       if(occup.listeVoisinLibres(tete).length==0){
         alert("Tu as perdu");
         return;
+      }
+      if(tete.y<=0){
+        nouv_tete=occup.voisinLibreAuHasard(tete);
+        break;
       }
       if(occup.estLibre(new Point(tete.x,tete.y-1)))
         nouv_tete = tete.voisin("haut");
@@ -104,11 +108,13 @@ document.onkeypress = function(evt)
       break;
     case 39 :
     case 100 :
-      if(tete.x>=arene.nbColonne()-1)
-        return;
       if(occup.listeVoisinLibres(tete).length==0){
         alert("Tu as perdu");
         return;
+      }
+      if(tete.x>=arene.nbColonne()-1){
+        nouv_tete=occup.voisinLibreAuHasard(tete);
+        break;
       }
       if(occup.estLibre(new Point(tete.x+1,tete.y)))
         nouv_tete = tete.voisin("drt");
@@ -118,11 +124,13 @@ document.onkeypress = function(evt)
       break;
     case 40 :
     case 115 :
-      if(tete.y>=arene.nbLigne()-1)
-        return;
       if(occup.listeVoisinLibres(tete).length==0){
         alert("Tu as perdu");
         return;
+      }
+      if(tete.y>=arene.nbLigne()-1){
+        nouv_tete=occup.voisinLibreAuHasard(tete);
+        break;
       }
       if(occup.estLibre(new Point(tete.x,tete.y+1)))
         nouv_tete = tete.voisin("bas");
