@@ -1,3 +1,13 @@
+function estDansliste(liste,point){
+  var tab=liste.to_Array();
+  for(var i=0;i<tab.length;i++){
+    if(sontAuMemePoint(tab[i],point)){
+      return true;
+    }
+  }
+  return false;
+}
+
 var Graphes=function(arene){
   this.arene=arene;
   this.tab=new Array(arene.nbColonne());
@@ -10,6 +20,11 @@ var Graphes=function(arene){
     }
   }
   this.initGraphe=function(posProta){
+    for(var i=0;i<arene.nbColonne();i++){
+      for (var j = 0; j < arene.nbLigne(); j++) {
+        this.tab[i][j]=154154861;
+      }
+    }
     for(var i=0;i<posProta.length;i++){
       for(var j=0;j<posProta[i].length;j++){
         this.tab[posProta[i][j].x][posProta[i][j].y]=-2;
@@ -21,87 +36,67 @@ var Graphes=function(arene){
     return point.x>=0 && point.x<arene.nbColonne() && point.y>=0 && point.y<arene.nbLigne();
   }
 
-  this.dijkstra=function(source,destination){
-    var liste=new Fifo();
-    var elem,haut,bas,droite,gauche,val;
+  this.majDistance=function(s1,s2){
+    if(tab[s2.x][s2.y]>tab[s1.x][s2.y]+1){
+      tab[s2.x][s2.y]=tab[s1.x][s2.y]+1;
+    }
+  }
+
+  this.minTab=function(Q){
+    var min=Q[0];
+    for(var i=0;i<Q.length;i++){
+      if(tab[min.x][min.y]>tab[Q[i].x][Q[i].y]){
+        min=Q[i];
+      }
+    }
+    return min;
+  }
+
+  this.dijkstra=function(source,destination,posProta){
+    var P=[];
+    var Q=[];
+    this.initGraphe(posProta);
+    for(var i=0;i<posProta.length;i++){
+      for (var j = 0;j<posProta[i].length; j++) {
+        if(this.tab[posProta[i][j].x][posProta[i][j].y]!=-2){
+          Q.push(new Point(i,j));
+        }
+      }
+    }
     this.tab[source.x][source.y]=0;
-    liste.ajouter(source);
-    while(!liste.estVide()){
-      elem=liste.premier();
-      val=this.tab[elem.x][elem.y];
+    var elem,index,haut,bas,gauche,droite;
+    while(Q.length!=0){
+      elem=this.minTab(Q);
+      index=Q.indexOf(elem);
+      Q.splice(index,1);
       haut=elem.voisin("haut");
       bas=elem.voisin("bas");
       gauche=elem.voisin("gch");
       droite=elem.voisin("drt");
       if(this.PointValide(haut)){
-        if(this.tab[haut.x][haut.y]!=-2){
-          if(this.tab[haut.x][haut.y]==-1){
-            this.tab[haut.x][haut.y]=1+val;
-            if(sontAuMemePoint(destination,haut)){
-              return;
-            }
-            liste.ajouter(haut);
-          }else if (this.tab[haut.x][haut.y]>val) {
-            this.tab[haut.x][haut.y]=1+val;
-            if(sontAuMemePoint(destination,haut)){
-              return;
-            }
-            liste.ajouter(haut);
-          }
-        }
+        this.majDistance(elem,haut);
+      }
+      if(sontAuMemePoint(haut,destination)){
+        return;
       }
       if(this.PointValide(bas)){
-        if(this.tab[bas.x][bas.y]!=-2){
-          if(this.tab[bas.x][bas.y]==-1){
-            this.tab[bas.x][bas.y]=1+val;
-            if(sontAuMemePoint(destination,bas)){
-              return;
-            }
-            liste.ajouter(bas);
-          }else if (this.tab[bas.x][bas.y]>val) {
-            this.tab[bas.x][bas.y]=1+val;
-            if(sontAuMemePoint(destination,bas)){
-              return;
-            }
-            liste.ajouter(bas);
-          }
-        }
+        this.majDistance(elem,bas);
       }
-      if(this.PointValide(gauche)){
-        if(this.tab[gauche.x][gauche.y]!=-2){
-          if(this.tab[gauche.x][gauche.y]==-1){
-            this.tab[gauche.x][gauche.y]=1+val;
-            if(sontAuMemePoint(destination,gauche)){
-              return;
-            }
-            liste.ajouter(gauche);
-          }else if (this.tab[gauche.x][gauche.y]>val) {
-            this.tab[gauche.x][gauche.y]=1+val;
-            if(sontAuMemePoint(destination,gauche)){
-              return;
-            }
-            liste.ajouter(gauche);
-          }
-        }
+      if(sontAuMemePoint(bas,destination)){
+        return;
       }
       if(this.PointValide(droite)){
-        if(this.tab[droite.x][droite.y]!=-2){
-          if(this.tab[droite.x][droite.y]==-1){
-            this.tab[droite.x][droite.y]=1+val;
-            if(sontAuMemePoint(destination,droite)){
-              return;
-            }
-            liste.ajouter(droite);
-          }else if (this.tab[haut.droite.x][haut.droite.y]>val) {
-            this.tab[haut.droite.x][haut.droite.y]=1+val;
-            if(sontAuMemePoint(destination,droite)){
-              return;
-            }
-            liste.ajouter(haut.droite);
-          }
-        }
+        this.majDistance(elem,droite);
       }
-      liste.liberer();
+      if(sontAuMemePoint(droite,destination)){
+        return;
+      }
+      if(this.PointValide(gauche)){
+        this.majDistance(elem,gauche);
+      }
+      if(sontAuMemePoint(gauche,destination)){
+        return;
+      }
     }
   }
 }

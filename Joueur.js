@@ -3,8 +3,10 @@ var Joueur=function(id,moteur,type){
   this.id=id;
   this.moteur=moteur;
   this.type=type;
+  this.graphe=new Graphes(moteur.arene);
   this.proposerMouvement=function(pos_prota){
     if(type=="humain"){
+      this.graphe.dijkstra(pos_prota[0][0],new Point(-1,-1),pos_prota);
       return buffer;
     }
     if(type=="IA_1"){
