@@ -1,6 +1,6 @@
 var moteur=new Moteur("arene",50);
-var joueur_humain=new Joueur(1,moteur,"humain");
-var joueur_machine=new Joueur(0,moteur,"IA_1");
+var joueur_humain=new Joueur(1,moteur,"IA_4");
+var joueur_machine=new Joueur(0,moteur,"IA_3");
 var envie=1;
 function deplacementIA(){
   if(envie==1){

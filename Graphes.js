@@ -37,31 +37,34 @@ var Graphes=function(arene){
   }
 
   this.majDistance=function(s1,s2){
-    if(tab[s2.x][s2.y]>tab[s1.x][s2.y]+1){
-      tab[s2.x][s2.y]=tab[s1.x][s2.y]+1;
+    if(this.tab[s2.x][s2.y]>this.tab[s1.x][s1.y]+1){
+      this.tab[s2.x][s2.y]=this.tab[s1.x][s1.y]+1;
     }
   }
 
   this.minTab=function(Q){
     var min=Q[0];
     for(var i=0;i<Q.length;i++){
-      if(tab[min.x][min.y]>tab[Q[i].x][Q[i].y]){
+      if(this.tab[min.x][min.y]>this.tab[Q[i].x][Q[i].y]){
         min=Q[i];
       }
     }
     return min;
   }
 
-  this.dijkstra=function(source,destination,posProta){
+  this.dijkstra=function(source,posProta){
     var P=[];
     var Q=[];
     this.initGraphe(posProta);
-    for(var i=0;i<posProta.length;i++){
-      for (var j = 0;j<posProta[i].length; j++) {
-        if(this.tab[posProta[i][j].x][posProta[i][j].y]!=-2){
+    for(var i=0;i<arene.nbColonne();i++){
+      for (var j = 0; j < arene.nbLigne(); j++) {
+        if(this.tab[i][j]!=-2){
           Q.push(new Point(i,j));
         }
       }
+    }
+    if(this.tab[source.x][source.y]==-2){
+      Q.push(source);
     }
     this.tab[source.x][source.y]=0;
     var elem,index,haut,bas,gauche,droite;
@@ -76,27 +79,76 @@ var Graphes=function(arene){
       if(this.PointValide(haut)){
         this.majDistance(elem,haut);
       }
-      if(sontAuMemePoint(haut,destination)){
-        return;
-      }
       if(this.PointValide(bas)){
         this.majDistance(elem,bas);
-      }
-      if(sontAuMemePoint(bas,destination)){
-        return;
       }
       if(this.PointValide(droite)){
         this.majDistance(elem,droite);
       }
-      if(sontAuMemePoint(droite,destination)){
-        return;
-      }
       if(this.PointValide(gauche)){
         this.majDistance(elem,gauche);
       }
-      if(sontAuMemePoint(gauche,destination)){
-        return;
+    }
+  }
+  this.DistanceMax=function(){
+    var max=new Point(0,0);
+    for(var i=0;i<arene.nbColonne();i++){
+      for (var j = 0; j < arene.nbLigne(); j++) {
+        if(this.tab[i][j]!=-2 && this.tab[i][j]!=154154861){
+          if(this.tab[i][j]>this.tab[max.x][max.y])
+            max=new Point(i,j);
+        }
       }
     }
+    return max;
+  }
+  this.DirSafe=function(point,posProta){
+    this.dijkstra(point,posProta);
+    var max=this.DistanceMax();
+    this.dijkstra(max,posProta);
+    var haut=point.voisin("haut");
+    var bas=point.voisin("bas");
+    var gauche=point.voisin("gch");
+    var droite=point.voisin("drt");
+    var min=haut;
+    var choix="haut";
+    if(!this.PointValide(min) || this.tab[min.x][min.y]<0){
+      min=bas;
+      choix="bas";
+      if(!this.PointValide(min) || this.tab[min.x][min.y]<0){
+        min=droite;
+        choix="drt";
+        if(!this.PointValide(min) || this.tab[min.x][min.y]<0){
+          min=gauche;
+          choix="gch";
+          return choix;
+        }
+      }
+    }
+    // if(this.PointValide(haut)){
+    //   console.log("haut : "+this.tab[haut.x][haut.y]);
+    // }
+    // if(this.PointValide(bas)){
+    //   console.log("bas : "+this.tab[bas.x][bas.y]);
+    // }
+    // if(this.PointValide(droite)){
+    //   console.log("droite : "+this.tab[droite.x][droite.y]);
+    // }
+    // if(this.PointValide(gauche)){
+    //   console.log("gauche : "+this.tab[gauche.x][gauche.y]);
+    // }
+    if(this.PointValide(bas) &&  this.tab[bas.x][bas.y]>0 && this.tab[bas.x][bas.y] < this.tab[min.x][min.y]){
+      min=bas;
+      choix="bas";
+    }
+    if(this.PointValide(droite) &&  this.tab[droite.x][droite.y]>0 && this.tab[droite.x][droite.y] < this.tab[min.x][min.y]){
+      min=droite;
+      choix="drt";
+    }
+    if(this.PointValide(gauche) &&  this.tab[gauche.x][gauche.y]>0 && this.tab[gauche.x][gauche.y] < this.tab[min.x][min.y]){
+      min=gauche;
+      choix="gch";
+    }
+    return choix;
   }
 }
