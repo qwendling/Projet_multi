@@ -1,19 +1,11 @@
 var moteur=new Moteur("arene",50);
-
+var joueur_humain=new Joueur(1,moteur,"humain");
+var joueur_machine=new Joueur(0,moteur,"IA_1");
 var envie=1;
 function deplacementIA(){
   if(envie==1){
-    var tete=moteur.tabSer[0].tete();
-    var nouv_tete=moteur.occupation.voisinLibreAuHasard(tete);
-    if(nouv_tete==undefined){
-      alert("IA dead");
-      envie=0;
-      return;
-    }
-    moteur.occupation.liberer(moteur.tabSer[0].queue());
-    moteur.tabSer[0].placerTete(nouv_tete);
-    moteur.occupation.occuper(nouv_tete);
-    moteur.occupation.visuDebug(moteur.carrelage);
+    moteur.proposerMouvement(1,joueur_humain.proposerMouvement(moteur.positionProtagoniste()));
+    moteur.proposerMouvement(0,joueur_machine.proposerMouvement(moteur.positionProtagoniste()));
   }
   else
     return
@@ -40,19 +32,19 @@ document.onkeypress = function(evt)
   {
     case 37 :
     case 113 :
-      moteur.proposerMouvement(1,"gch");
+      buffer="gch";
       break;
     case 38 :
     case 122 :
-      moteur.proposerMouvement(1,"haut");
+      buffer="haut";
       break;
     case 39 :
     case 100 :
-      moteur.proposerMouvement(1,"drt");
+      buffer="drt";
       break;
     case 40 :
     case 115 :
-      moteur.proposerMouvement(1,"bas");
+      buffer="bas";
       break;
     default:
       return;

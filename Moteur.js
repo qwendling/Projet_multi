@@ -52,7 +52,8 @@ var Moteur=function(id,taille_cell,color){
     {
       case "gch" :
         if(this.occupation.listeVoisinLibres(tete).length==0){
-          alert("Tu as perdu");
+          alert("Joueur "+indice+" as perdu");
+          envie=0;
           return;
         }
         if(tete.x<=0){
@@ -67,7 +68,8 @@ var Moteur=function(id,taille_cell,color){
         break;
       case "haut" :
         if(this.occupation.listeVoisinLibres(tete).length==0){
-          alert("Tu as perdu");
+          alert("Joueur "+indice+" as perdu");
+          envie=0;
           return;
         }
         if(tete.y<=0){
@@ -82,7 +84,8 @@ var Moteur=function(id,taille_cell,color){
         break;
       case "drt" :
         if(this.occupation.listeVoisinLibres(tete).length==0){
-          alert("Tu as perdu");
+          alert("Joueur "+indice+" as perdu");
+          envie=0;
           return;
         }
         if(tete.x>=this.arene.nbColonne()-1){
@@ -97,7 +100,8 @@ var Moteur=function(id,taille_cell,color){
         break;
       case "bas" :
         if(this.occupation.listeVoisinLibres(tete).length==0){
-          alert("Tu as perdu");
+          alert("Joueur "+indice+" as perdu");
+          envie=0;
           return;
         }
         if(tete.y>=this.arene.nbLigne()-1){
