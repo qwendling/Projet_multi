@@ -14,26 +14,26 @@ Sinon le jeu recommence.
 Dans je fichier Test_moteur.js en modifiant les lignes 2 et 3 on peut changer le
 type des joueur présent.
 Type disponible:
--humain
-  -IA_1
-  -IA_2
-  -IA_3
-  -IA_4
-  -IA_5
+* Humain
+* IA_1
+* IA_2
+* IA_3
+* IA_4
+* IA_5
 ### Fonctionnement des IA :
--IA_1 :
+* IA_1 :
   IA basique qui cherche à toujours se diriger vers le haut
--IA_2 :
+* IA_2 :
   IA à déplacement aléatoire
--IA_3 :
+* IA_3 :
   IA qui cherche à toujours prendre le chemin le plus viable c'est à dire le chemin
   potentiellement le plus long pour éviter de se retrouvé bloquer dansune impasse
--IA_4 :
+* IA_4 :
   IA qui va chercher à être le plus loin possible de la tete de l'autre snake
--IA_5 :
+* IA_5 :
   IA qui va chercher à être le plus proche possible de la tete de l'autre snake
 
--Idée d'IA :
+* Idée d'IA :
   Une IA qui va chercher à encercler le snake adverse
 
 La rercherche de chemin des IA 3,4,5 est faite grace à l'algorithme de dijkstra
