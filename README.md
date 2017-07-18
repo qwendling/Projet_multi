@@ -1,8 +1,10 @@
-# Projet_multi
-##Projet de multimédia CMI printemps 2016
-###Etat d'avancement :
+Projet_multi
+============
+Projet de multimédia CMI printemps 2016
+-----------------------------------------
+### Etat d'avancement :
 -Toute les question ont été traitées
-###Fonctionnement :
+### Fonctionnement :
 Par défaut le fichier HTML lance le projet avec le moteur pour lancer les première
 version il faut mettre en commentaire l'include de Test_moteur.js et enlever l'include
 de common.js
@@ -18,7 +20,7 @@ Type disponible:
   -IA_3
   -IA_4
   -IA_5
-###Fonctionnement des IA :
+### Fonctionnement des IA :
 -IA_1 :
   IA basique qui cherche à toujours se diriger vers le haut
 -IA_2 :
